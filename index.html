@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Roast & Soul — Кофейня</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--cream:#fdf6ec;
+--warm:#f5e6cc;
+--brown:#6b3f1f;
+--dark:#2c1a0e;
+--accent:#c0722a;
+--light:#fff8f0;
+--text:#3d2007;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Georgia',serif;background:var(--cream);color:var(--text)}
+a{text-decoration:none;color:inherit}
+nav{position:fixed;top:0;width:100%;background:rgba(43,26,14,.92);backdrop-filter:blur(8px);z-index:100;padding:16px 40px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.4rem;font-weight:bold;color:#f5c97a;letter-spacing:2px}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:#f5e6cc;font-size:.95rem;transition:color .3s}
+.nav-links a:hover{color:#f5c97a}
+section{padding:100px 40px}
+/* HERO */
+#hero{min-height:100vh;background:linear-gradient(160deg,#2c1a0e 0%,#6b3f1f 55%,#c0722a 100%);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+#hero::before{content:'☕';font-size:320px;position:absolute;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+.hero-inner{position:relative;z-index:1;max-width:700px}
+.hero-tag{display:inline-block;background:rgba(245,201,122,.15);border:1px solid #f5c97a;color:#f5c97a;padding:6px 20px;border-radius:50px;font-size:.85rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px}
+.hero-inner h1{font-size:clamp(2.6rem,7vw,5rem);color:#fff;line-height:1.1;margin-bottom:20px}
+.hero-inner h1 span{color:#f5c97a}
+.hero-inner p{color:#f5d9bb;font-size:1.15rem;line-height:1.7;margin-bottom:40px}
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:15px 40px;border-radius:50px;font-size:1rem;letter-spacing:1px;transition:transform .2s,background .3s;margin:6px}
+.btn:hover{background:#a05a1a;transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid #f5c97a;color:#f5c97a}
+.btn-outline:hover{background:#f5c97a;color:var(--dark)}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:#f5c97aaa;font-size:.8rem;letter-spacing:2px;animation:bob 2s infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+/* MENU */
+#menu{background:var(--light)}
+.section-title{text-align:center;margin-bottom:60px}
+.section-title h2{font-size:clamp(2rem,5vw,3rem);color:var(--brown)}
+.section-title p{color:#8c6044;margin-top:10px;font-size:1rem}
+.section-title::after{content:'';display:block;width:60px;height:3px;background:var(--accent);margin:16px auto 0}
+.menu-tabs{display:flex;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap}
+.tab{padding:10px 28px;border-radius:50px;border:2px solid var(--warm);background:transparent;cursor:pointer;font-family:Georgia,serif;font-size:.95rem;color:var(--brown);transition:all .3s}
+.tab.active,.tab:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+.menu-card{background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 4px 20px rgba(107,63,31,.08);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.menu-card::before{content:attr(data-icon);font-size:52px;position:absolute;top:-8px;right:12px;opacity:.12}
+.menu-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(107,63,31,.15)}
+.menu-card h3{font-size:1.15rem;color:var(--dark);margin-bottom:8px}
+.menu-card p{color:#8c6044;font-size:.9rem;line-height:1.6;margin-bottom:16px}
+.menu-price{font-size:1.2rem;font-weight:bold;color:var(--accent)}
+/* ATMOSPHERE */
+#atmosphere{background:var(--warm)}
+.atm-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;max-width:1100px;margin:0 auto}
+.atm-card{border-radius:20px;overflow:hidden;position:relative;min-height:220px;display:flex;align-items:flex-end}
+.atm-card:first-child{grid-column:span 2;min-height:320px}
+.atm-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px}
+.atm-card:nth-child(1) .atm-bg{background:linear-gradient(135deg,#4a2810,#8b4513)}
+.atm-card:nth-child(2) .atm-bg{background:linear-gradient(135deg,#6b3f1f,#c0722a)}
+.atm-card:nth-child(3) .atm-bg{background:linear-gradient(135deg,#7a4a25,#d4895a)}
+.atm-card:nth-child(4) .atm-bg{background:linear-gradient(135deg,#3d2007,#7a4a25)}
+.atm-card:nth-child(5) .atm-bg{background:linear-gradient(135deg,#c0722a,#e8a96b)}
+.atm-label{position:relative;z-index:1;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);width:100%;padding:16px 20px;color:#fff}
+.atm-label h4{font-size:1rem;margin-bottom:4px}
+.atm-label p{font-size:.8rem;opacity:.8}
+/* CONTACTS */
+#contacts{background:var(--dark);color:var(--cream)}
+#contacts .section-title h2{color:#f5c97a}
+#contacts .section-title p{color:#c49a6c}
+#contacts .section-title::after{background:#f5c97a}
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1000px;margin:0 auto;align-items:start}
+.contact-info h3{font-size:1.4rem;color:#f5c97a;margin-bottom:24px}
+.contact-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
+.contact-icon{font-size:1.8rem;min-width:40px}
+.contact-item h4{color:#f5c97a;margin-bottom:4px;font-size:1rem}
+.contact-item p{color:#c49a6c;font-size:.95rem;line-height:1.6}
+.map-placeholder{background:linear-gradient(135deg,#3d2007,#6b3f1f);border-radius:20px;min-height:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;border:1px solid #6b3f1f}
+.map-placeholder span{font-size:60px}
+.map-placeholder p{color:#c49a6c;font-size:.9rem;text-align:center;padding:0 20px}
+.hours-block{margin-top:28px;background:rgba(255,255,255,.05);border-radius:16px;padding:20px 24px}
+.hours-block h4{color:#f5c97a;margin-bottom:14px}
+.hours-row{display:flex;justify-content:space-between;color:#c49a6c;font-size:.9rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.hours-row:last-child{border:none}
+footer{background:#1a0f08;text-align:center;padding:32px 40px;color:#8c6044;font-size:.85rem}
+footer span{color:#f5c97a}
+@media(max-width:900px){
+.atm-grid{grid-template-columns:1fr 1fr}
+.atm-card:first-child{grid-column:span 2}
+.contacts-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+nav{padding:14px 20px}
+.nav-links{gap:16px}
+.nav-links a{font-size:.8rem}
+section{padding:80px 20px}
+.atm-grid{grid-template-columns:1fr}
+.atm-card:first-child{grid-column:span 1}
+.menu-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+<div class="logo">☕ Roast &amp; Soul</div>
+<div class="nav-links">
+<a href="#hero">Главная</a>
+<a href="#menu">Меню</a>
+<a href="#atmosphere">Атмосфера</a>
+<a href="#contacts">Контакты</a>
+</div>
+</nav>
+
+<section id="hero">
+<div class="hero-inner">
+<div class="hero-tag">Авторский кофе · С душой</div>
+<h1>Твой идеальный<br><span>утренний ритуал</span></h1>
+<p>Мы обжариваем зёрна с любовью и варим каждую чашку вручную.<br>Уютное место, где время замедляется.</p>
+<a href="#menu" class="btn">Смотреть меню</a>
+<a href="#contacts" class="btn btn-outline">Найти нас</a>
+</div>
+<div class="scroll-hint">↓ SCROLL</div>
+</section>
+
+<section id="menu">
+<div class="section-title">
+<h2>Наше меню</h2>
+<p>Каждый напиток — маленькое произведение искусства</p>
+</div>
+<div class="menu-tabs">
+<button class="tab active">Кофе</button>
+<button class="tab">Чай &amp; лимонады</button>
+<button class="tab">Еда</button>
+</div>
+<div class="menu-grid">
+<div class="menu-card" data-icon="☕">
+<h3>Эспрессо</h3>
+<p>Классический двойной шот из свежеобжаренных зёрен Эфиопии</p>
+<div class="menu-price">180 ₽</div>
+</div>
+<div class="menu-card" data-icon="🥛">
+<h3>Капучино</h3>
+<p>Бархатная молочная пенка, идеальный баланс вкуса и аромата</p>
+<div class="menu-price">280 ₽</div>
+</div>
+<div class="menu-card" data-icon="❄️">
+<h3>Айс-латте</h3>
+<p>Освежающий холодный кофе с молоком на льду, летнее настроение</p>
+<div class="menu-price">320 ₽</div>
+</div>
+<div class="menu-card" data-icon="🍫">
+<h3>Мокко</h3>
+<p>Эспрессо с бельгийским шоколадом и взбитыми сливками</p>
+<div class="menu-price">340 ₽</div>
+</div>
+<div class="menu-card" data-icon="🌿">
+<h3>Матча-латте</h3>
+<p>Японский зелёный чай маття с овсяным или кокосовым молоком</p>
+<div class="menu-price">360 ₽</div>
+</div>
+<div class="menu-card" data-icon="☁️">
+<h3>Флэт Уайт</h3>
+<p>Двойной рестретто с микропенкой — для ценителей крепкого кофе</p>
+<div class="menu-price">300 ₽</div>
+</div>
+</div>
+</section>
+
+<section id="atmosphere">
+<div class="section-title">
+<h2>Наша атмосфера</h2>
+<p>Место, куда хочется возвращаться снова и снова</p>
+</div>
+<div class="atm-grid">
+<div class="atm-card"><div class="atm-bg">☕</div><div class="atm-label"><h4>Уютный интерьер</h4><p>Тёплый свет, живые растения, деревянные детали</p></div></div>
+<div class="atm-card"><div class="atm-bg">🫘</div><div class="atm-label"><h4>Свежая обжарка</h4><p>Зёрна от лучших ферм мира</p></div></div>
+<div class="atm-card"><div class="atm-bg">📚</div><div class="atm-label"><h4>Зона для работы</h4><p>Тихий уголок с быстрым Wi-Fi</p></div></div>
+<div class="atm-card"><div class="atm-bg">🎵</div><div class="atm-label"><h4>Живая музыка</h4><p>По пятницам и субботам</p></div></div>
+<div class="atm-card"><div class="atm-bg">🌅</div><div class="atm-label"><h4>Летняя терраса</h4><p>Открытая с мая по октябрь</p></div></div>
+</div>
+</section>
+
+<section id="contacts">
+<div class="section-title">
+<h2>Где нас найти</h2>
+<p>Будем рады видеть вас каждый день</p>
+</div>
+<div class="contacts-grid">
+<div class="contact-info">
+<h3>Свяжитесь с нами</h3>
+<div class="contact-item">
+<div class="contact-icon">📍</div>
+<div><h4>Адрес</h4><p>Москва, ул. Никольская, 15<br>м. Охотный Ряд, 3 мин. пешком</p></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">📞</div>
+<div><h4>Телефон</h4><p>+7 (495) 123-45-67</p></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">✉️</div>
+<div><h4>Email</h4><p>hello@roastandsoul.ru</p></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">📸</div>
+<div><h4>Instagram</h4><p>@roastandsoul_coffee</p></div>
+</div>
+<div class="hours-block">
+<h4>Часы работы</h4>
+<div class="hours-row"><span>Пн — Пт</span><span>08:00 — 22:00</span></div>
+<div class="hours-row"><span>Суббота</span><span>09:00 — 23:00</span></div>
+<div class="hours-row"><span>Воскресенье</span><span>10:00 — 21:00</span></div>
+</div>
+</div>
+<div class="map-placeholder">
+<span>🗺️</span>
+<p>ул. Никольская, 15<br>Москва, Россия</p>
+<a href="https://maps.google.com" class="btn" style="margin-top:12px;font-size:.85rem;padding:12px 28px" target="_blank">Открыть в картах</a>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2025 <span>Roast &amp; Soul</span> · Сделано с ☕ и любовью · Москва</p>
+</footer>
+</body>
+</html>
