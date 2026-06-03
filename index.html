@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aromatic — Кофейня</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--br:#3b1f0e;--cr:#c8793a;--bg:#fdf8f3;--tx:#2c1a0e;--lt:#f5ede2}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--tx)}
+a{text-decoration:none;color:inherit}
+nav{position:fixed;top:0;width:100%;background:rgba(59,31,14,.95);backdrop-filter:blur(6px);z-index:100;display:flex;justify-content:space-between;align-items:center;padding:16px 6%}
+.logo{color:#fff;font-size:1.5rem;font-weight:700;letter-spacing:2px}
+.logo span{color:var(--cr)}
+nav ul{list-style:none;display:flex;gap:28px}
+nav ul a{color:#e8d5c0;font-size:.95rem;transition:.2s}
+nav ul a:hover{color:var(--cr)}
+.hero{height:100vh;background:linear-gradient(135deg,#1a0a03 0%,#3b1f0e 60%,#6b3a1f 100%);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('assets/images/hero.png') center/cover no-repeat;opacity:.35}
+.hero-content{position:relative;z-index:1;padding:20px}
+.hero h1{font-size:clamp(2.5rem,7vw,5rem);color:#fff;font-weight:800;line-height:1.1;letter-spacing:-1px}
+.hero h1 span{color:var(--cr)}
+.hero p{color:#d4b896;font-size:1.2rem;margin:20px 0 36px;max-width:540px}
+.btn{display:inline-block;background:var(--cr);color:#fff;padding:14px 36px;border-radius:50px;font-size:1rem;font-weight:600;transition:.25s;border:none;cursor:pointer}
+.btn:hover{background:#a85e28;transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid var(--cr);color:var(--cr);margin-left:12px}
+.btn-outline:hover{background:var(--cr);color:#fff}
+section{padding:90px 6%}
+h2.section-title{font-size:2.2rem;font-weight:800;text-align:center;margin-bottom:12px}
+.section-sub{text-align:center;color:#7a5c42;margin-bottom:56px;font-size:1.05rem}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;max-width:900px;margin:0 auto}
+.perk{background:#fff;border-radius:20px;padding:36px 28px;text-align:center;box-shadow:0 4px 24px rgba(59,31,14,.08);transition:.25s}
+.perk:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(59,31,14,.14)}
+.perk img{width:72px;height:72px;margin-bottom:18px;object-fit:contain}
+.perk h3{font-size:1.15rem;margin-bottom:8px}
+.perk p{color:#7a5c42;font-size:.92rem;line-height:1.6}
+.menu-section{background:var(--lt)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+.menu-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(59,31,14,.08);transition:.25s}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(59,31,14,.14)}
+.menu-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.menu-img.espresso{background:linear-gradient(135deg,#3b1f0e,#6b3a1f)}
+.menu-img.latte{background:linear-gradient(135deg,#c8793a,#e8a060)}
+.menu-img.cappuccino{background:linear-gradient(135deg,#7a4a2a,#c8793a)}
+.menu-img.matcha{background:linear-gradient(135deg,#4a7a3a,#8abf6a)}
+.menu-img.cake{background:linear-gradient(135deg,#c8a07a,#e8c8a0)}
+.menu-img.croissant{background:linear-gradient(135deg,#c8b060,#e8d080)}
+.menu-body{padding:20px}
+.menu-body h3{font-size:1.1rem;margin-bottom:6px}
+.menu-body p{color:#7a5c42;font-size:.88rem;margin-bottom:14px;line-height:1.5}
+.price{font-weight:700;color:var(--cr);font-size:1.1rem}
+.atm-section{background:var(--br);color:#fff}
+.atm-section h2.section-title{color:#fff}
+.atm-section .section-sub{color:#d4b896}
+.atm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+.atm-card{border-radius:18px;overflow:hidden;position:relative;height:260px;display:flex;align-items:flex-end;cursor:pointer}
+.atm-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem}
+.atm-bg.a1{background:linear-gradient(180deg,#1a0a03 0%,#6b3a1f 100%)}
+.atm-bg.a2{background:linear-gradient(180deg,#2a1a0a 0%,#8a5a2a 100%)}
+.atm-bg.a3{background:linear-gradient(180deg,#0a0a0a 0%,#3b2a1a 100%)}
+.atm-bg.a4{background:linear-gradient(180deg,#1a0a0a 0%,#5a2a1a 100%)}
+.atm-label{position:relative;z-index:1;padding:20px;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);width:100%}
+.atm-label span{color:#fff;font-weight:600;font-size:1rem}
+.contacts-section{background:var(--bg)}
+.contacts-flex{display:flex;gap:48px;max-width:1000px;margin:0 auto;flex-wrap:wrap}
+.contacts-info{flex:1;min-width:260px}
+.contacts-info h3{font-size:1.4rem;margin-bottom:24px;color:var(--br)}
+.ci-item{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.ci-icon{font-size:1.5rem;min-width:36px}
+.ci-text strong{display:block;margin-bottom:2px;color:var(--br)}
+.ci-text span{color:#7a5c42;font-size:.93rem}
+.map-placeholder{margin-top:24px;background:var(--lt);border-radius:16px;height:180px;display:flex;align-items:center;justify-content:center;color:#a07050;font-size:.95rem;border:2px dashed #d4b896}
+.booking-form{flex:1;min-width:280px;background:#fff;border-radius:24px;padding:36px;box-shadow:0 4px 32px rgba(59,31,14,.1)}
+.booking-form h3{font-size:1.4rem;margin-bottom:24px;color:var(--br)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.88rem;font-weight:600;color:var(--br);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:1.5px solid #e0cdb8;border-radius:12px;font-size:.95rem;background:var(--bg);color:var(--tx);transition:.2s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--cr);background:#fff}
+.form-group textarea{height:90px;resize:vertical}
+.form-row{display:flex;gap:14px}
+.form-row .form-group{flex:1}
+.booking-form .btn{width:100%;padding:14px;font-size:1rem;margin-top:6px}
+.success-msg{display:none;background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:12px;padding:14px;text-align:center;color:#2e7d32;margin-top:14px;font-weight:600}
+footer{background:var(--br);color:#d4b896;text-align:center;padding:36px 6%}
+footer .logo{display:inline-block;margin-bottom:12px;font-size:1.3rem}
+footer p{font-size:.88rem;opacity:.7;margin-top:8px}
+.footer-links{display:flex;justify-content:center;gap:24px;margin:16px 0;flex-wrap:wrap}
+.footer-links a{color:#c8a07a;font-size:.9rem;transition:.2s}
+.footer-links a:hover{color:#fff}
+@media(max-width:640px){nav ul{gap:14px}nav ul a{font-size:.8rem}.contacts-flex{flex-direction:column}.form-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Aro<span>ma</span>tic</div>
+  <ul>
+    <li><a href="#perks">О нас</a></li>
+    <li><a href="#menu">Меню</a></li>
+    <li><a href="#atmosphere">Атмосфера</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+    <li><a href="#contacts"><div class="btn" style="padding:8px 20px;font-size:.85rem">Забронировать</div></a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero::before"></div>
+  <div class="hero-content">
+    <h1>Место, где<br><span>кофе — искусство</span></h1>
+    <p>Авторские напитки, уютная атмосфера и свежеобжаренные зёрна из лучших регионов мира</p>
+    <a href="#menu" class="btn">Смотреть меню</a>
+    <a href="#contacts" class="btn btn-outline">Забронировать стол</a>
+  </div>
+</section>
+
+<section id="perks">
+  <h2 class="section-title">Почему выбирают нас</h2>
+  <p class="section-sub">Три причины влюбиться в Aromatic</p>
+  <div class="perks">
+    <div class="perk">
+      <img src="assets/images/icon-coffee.png" alt="Авторский кофе" onerror="this.style.fontSize='3.5rem';this.style.width='auto';this.innerHTML='☕';this.removeAttribute('src')">
+      <h3>Авторский кофе</h3>
+      <p>Каждый напиток — результат многолетней работы наших бариста-чемпионов</p>
+    </div>
+    <div class="perk">
+      <img src="assets/images/icon-cozy.png" alt="Уютная атмосфера" onerror="this.style.fontSize='3.5rem';this.style.width='auto';this.innerHTML='🤍';this.removeAttribute('src')">
+      <h3>Уютная атмосфера</h3>
+      <p>Тёплый интерьер, мягкий свет и приятная музыка — идеально для работы и встреч</p>
+    </div>
+    <div class="perk">
+      <img src="assets/images/icon-beans.png" alt="Свежие зёрна" onerror="this.style.fontSize='3.5rem';this.style.width='auto';this.innerHTML='🫘';this.removeAttribute('src')">
+      <h3>Свежие зёрна</html>
+      <p>Обжарка собственного производства — зёрна из Эфиопии, Колумбии и Бразилии</p>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu-section">
+  <h2 class="section-title">Наше меню</h2>
+  <p class="section-sub">Горячие напитки, холодные угощения и выпечка на каждый день</p>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <div class="menu-img espresso">☕</div>
+      <div class="menu-body">
+        <h3>Эспрессо</h3>
+        <p>Классический двойной эспрессо из купажа арабики и робусты. Плотный, насыщенный.</p>
+        <div class="price">180 ₽</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-img latte">🥛</div>
+      <div class="menu-body">
+        <h3>Латте с латте-артом</h3>
+        <p>Нежный эспрессо с бархатистым молоком и фирменным рисунком от бариста.</p>
+        <div class="price">280 ₽</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-img cappuccino">☁️</div>
+      <div class="menu-body">
+        <h3>Капучино</h3>
+        <p>Идеальный баланс эспрессо и воздушной пенки. Классика в лучшем виде.</p>
+        <div class="price">260 ₽</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-img matcha">🍵</div>
+      <div class="menu-body">
+        <h3>Матча латте</h3>
+        <p>Японский зелёный чай церемониального класса с нежным овсяным молоком.</p>
+        <div class="price">320 ₽</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-img cake">🎂</div>
+      <div class="menu-body">
+        <h3>Торт «Тирамису»</h3>
+        <p>Классический итальянский десерт — маскарпоне, савоярди и кофейный сироп.</p>
+        <div class="price">380 ₽</div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="menu-img croissant">🥐</div>
+      <div class="menu-body">
+        <h3>Круассан миндальный</h3>
+        <p>Слоёная выпечка с фрипсажем, свежая каждое утро от нашего кондитера.</p>
+        <div class="price">220 ₽</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="atmosphere" class="atm-section">
+  <h2 class="section-title">Атмосфера</h2>
+  <p class="section-sub">Почувствуй уют с первого взгляда</p>
+  <div class="atm-grid">
+    <div class="atm-card">
+      <div class="atm-bg a1">🕯️</div>
+      <div class="atm-label"><span>Вечерний свет</span></div>
+    </div>
+    <div class="atm-card">
+      <div class="atm-bg a2">📚</div>
+      <div class="atm-label"><span>Уголок для чтения</span></div>
+    </div>
+    <div class="atm-card">
+      <div class="atm-bg a3">🎵</div>
+      <div class="atm-label"><span>Живая музыка по пятницам</span></div>
+    </div>
+    <div class="atm-card">
+      <div class="atm-bg a4">🌿</div>
+      <div class="atm-label"><span>Летняя терраса</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" class="contacts-section">
+  <h2 class="section-title">Контакты и бронирование</h2>
+  <p class="section-sub">Забронируй стол заранее — мы тебя ждём</p>
+  <div class="contacts-flex">
+    <div class="contacts-info">
+      <h3>Как нас найти</h3>
+      <div class="ci-item">
+        <div class="ci-icon">📍</div>
+        <div class="ci-text">
+          <strong>Адрес</strong>
+          <span>Москва, ул. Кофейная, д. 12, ст. м. Арбатская</span>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">🕐</div>
+        <div class="ci-text">
+          <strong>Режим работы</strong>
+          <span>Пн–Пт: 08:00 – 22:00<br>Сб–Вс: 09:00 – 23:00</span>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">📞</div>
+        <div class="ci-text">
+          <strong>Телефон</strong>
+          <span>+7 (495) 123-45-67</span>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">📧</div>
+        <div class="ci-text">
+          <strong>Email</strong>
+          <span>hello@aromatic.coffee</span>
+        </div>
+      </div>
+      <div class="ci-item">
+        <div class="ci-icon">📱</div>
+        <div class="ci-text">
+          <strong>Соцсети</strong>
+          <span>@aromatic.coffee в Instagram и VK</span>
+        </div>
+      </div>
+      <div class="map-placeholder">🗺️ &nbsp;Карта — ул. Кофейная, д. 12</div>
+    </div>
+    <div class="booking-form">
+      <h3>Забронировать стол</h3>
+      <form id="bookingForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Имя *</label>
+            <input type="text" placeholder="Ваше имя" required>
+          </div>
+          <div class="form-group">
+            <label>Телефон *</label>
+            <input type="tel" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Дата *</label>
+            <input type="date" required>
+          </div>
+          <div class="form-group">
+            <label>Время *</label>
+            <input type="time" min="08:00" max="22:00" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Количество гостей</label>
+          <select>
+            <option>1 гость</option>
+            <option selected>2 гостя</option>
+            <option>3 гостя</option>
+            <option>4 гостя</option>
+            <option>5+ гостей</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Пожелания</label>
+          <textarea placeholder="Аллергии, особые пожелания, повод..."></textarea>
+        </div>
+        <button type="submit" class="btn">☕ Забронировать</button>
+        <div class="success-msg" id="successMsg">✅ Готово! Мы свяжемся с вами для подтверждения.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Aro<span style="color:var(--cr)">ma</span>tic</div>
+  <div class="footer-links">
+    <a href="#perks">О нас</a>
+    <a href="#menu">Меню</a>
+    <a href="#atmosphere">Атмосфера</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+  <p>© 2025 Aromatic Coffee. Все права защищены.</p>
+  <p style="margin-top:6px">Москва, ул. Кофейная, д. 12 &nbsp;|&nbsp; +7 (495) 123-45-67</p>
+</footer>
+
+<script>
+function handleSubmit(e){
+  e.preventDefault();
+  document.getElementById('successMsg').style.display='block';
+  e.target.reset();
+  setTimeout(()=>{document.getElementById('successMsg').style.display='none'},5000);
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
